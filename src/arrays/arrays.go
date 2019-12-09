@@ -42,8 +42,12 @@ func main(){
     num2 := [...]float64{67.7, 11.1, 21, 78}
     sum := float64(0)
     for j, v := range num2 {
-        fmt.Printf("%d the element of a is %.2f\n", j, v)
+        fmt.Printf("%d the element of num2 is %.2f\n", j, v)
         sum += v
     }
     fmt.Println("\nsum of all elements of num2", sum)
+
+    for _, v := range num2 {
+        fmt.Printf("ingore index, the element of num2 is %.2f\n", v)
+    }
 }
