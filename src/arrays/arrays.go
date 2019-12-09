@@ -60,11 +60,11 @@ func main(){
         fmt.Printf("ingore index, the element of num2 is %.2f\n", v)
     }
 
-    fmt.Printf("Double Dimensional Array:\n")
+    fmt.Printf("\nMultidimensional arrays:\n")
     arr := [3][2]string {
         {"lion", "tiger"},
         {"cat", "dog"},
-        {"pigeon", "peacok"},
+        {"pigeon", "peacok"}, //this comma is necessary. The compiler will complain if you omit this comma
     }
     printarray(arr)
     var barr [3][2]string
