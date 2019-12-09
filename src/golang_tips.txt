@@ -1,0 +1,26 @@
+GOPATH设置
+
+go命令依赖一个重要的环境变量：$GOPATH
+GOPATH允许多个目录，当有多个目录时，请注意分隔符，多个目录的时候Windows是分号;，Linux系统是冒号:
+当有多个GOPATH时默认将go get获取的包存放在第一个目录下
+$GOPATH目录约定有三个子目录
+
+    src存放源代码(比如：.go .c .h .s等)
+    pkg编译时生成的中间文件（比如：.a）
+    bin编译后生成的可执行文件（为了方便，可以把此目录加入到 $PATH 变量中，如果有多个gopath，那么使用${GOPATH//://bin:}/bin添加所有的bin目录）
+
+代码目录结构规划
+
+GOPATH下的src目录就是接下来开发程序的主要目录，所有的源码都是放在这个目录下面，那么一般我们的做法就是一个目录一个项目，例如: $GOPATH/src/mymath 表示mymath这个应用包或者可执行应用，这个根据package是main还是其他来决定，main的话就是可执行应用，其他的话就是应用包，这个会在后续详细介绍package。
+
+下面我就以mymath为例来讲述如何编写应用包，执行如下代码
+新建一个自己golang代码的路径myGolang
+
+export GOPATH=$HOME/gocode:$HOME/myGolang
+export PATH=$PATH:$GOROOT/bin:${GOPATH//://bin:}/bin
+
+go run：go run 编译并直接运行程序，它会产生一个临时文件（但不会生成 .exe 文件），直接在命令行输出程序执行结果，方便用户调试。
+
+go build：go build 用于测试编译包，主要检查是否会有编译错误，如果是一个可执行文件的源码（即是 main 包），就会直接生成一个可执行文件。
+
+go install：go install 的作用有两步：第一步是编译导入的包文件，所有导入的包文件编译完才会编译主程序；第二步是将编译后生成的可执行文件放到 bin 目录下（$GOPATH/bin），编译后的包文件放到 pkg 目录下（$GOPATH/pkg）。
