@@ -9,6 +9,15 @@ func changeLocal(num [5]int){
     fmt.Println("inside function:", num)
 }
 
+func printarray(a [3][2]string) {
+    for _, v1 := range a {
+        for _, v2 := range v1 {
+            fmt.Printf("%s ", v2)
+        }
+        fmt.Printf("\n")
+    }
+}
+
 func main(){
     var a[3]int
     fmt.Println(a)
@@ -50,4 +59,21 @@ func main(){
     for _, v := range num2 {
         fmt.Printf("ingore index, the element of num2 is %.2f\n", v)
     }
+
+    fmt.Printf("Double Dimensional Array:\n")
+    arr := [3][2]string {
+        {"lion", "tiger"},
+        {"cat", "dog"},
+        {"pigeon", "peacok"},
+    }
+    printarray(arr)
+    var barr [3][2]string
+    barr[0][0] = "apple"
+    barr[0][1] = "samsung"
+    barr[1][0] = "microsoft"
+    barr[1][1] = "google"
+    barr[2][0] = "AT&T"
+    barr[2][1] = "Huawei"
+    fmt.Printf("\n")
+    printarray(barr)
 }
