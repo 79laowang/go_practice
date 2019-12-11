@@ -4,6 +4,20 @@ import(
     "fmt"
 )
 
+func subtactOne(numbers []int) {
+    for i := range numbers {
+        numbers[i] -= 2
+    }
+}
+
+func countries() []string {
+    countries := []string{"USA", "Singapore", "Germany", "India"}
+    neededCountries := countries[:len(countries) - 2]
+    countriesCpy := make([]string, len(neededCountries))
+    copy(countriesCpy, neededCountries)
+    return neededCountries
+}
+
 func main() {
     a := [5]int{3, 4, 76, 79, 80}
     var b []int = a[1:4] // creates a slice from a[1] to a[3]
@@ -53,5 +67,45 @@ func main() {
     fmt.Println("cars:", cars, "has old length", len(cars), "and capacity", cap(cars)) // capacity of cars is 3
     cars = append(cars, "Toyata")
     fmt.Println("cars:", cars, "has new length", len(cars), "and capacity", cap(cars)) // capacity of cars is 3
+
+    fmt.Println("\nnil slice:")
+    var names []string // zero value of a slice is nil 
+    if names == nil {
+        fmt.Println("Slice is nil going to append")
+        names = append(names, "John", "Sebastain", "Vinay")
+        fmt.Println("names contents:", names)
+    }
+
+    fmt.Println("\nUsing ... operation to append one slice to another:")
+    veggies := []string{"potatoes", "tomatoes", "brinjal"}
+    fruits := []string{"oranges", "apples"}
+    fmt.Println("veggies:", veggies)
+    fmt.Println("fruits:", fruits)
+    food := append(veggies, fruits...)
+    fmt.Println("food = veggies + fruits:", food)
+
+    fmt.Println("\nWhen a slice is passed to a function, even though it's passed by value, the pointer variable will refer to the same underlying array:")
+    nos := []int{8, 7, 6}
+    fmt.Println("slice before function call", nos)
+    subtactOne(nos)
+    fmt.Println("slice after function call", nos)
+
+    fmt.Println("\nMultidimensional slices:")
+    pls := [][]string {
+        {"C", "C++"},
+        {"JavaScript"},
+        {"Go", "Rust"},
+    }
+    for _, v1 := range pls {
+        for _, v2 := range v1 {
+            fmt.Printf("%s ", v2)
+        }
+        fmt.Printf("\n")
+    }
+
+    fmt.Println("\nMemory Optimisation:")
+    countriesNeeded := countries()
+    fmt.Println("countriesNeeded:", countriesNeeded)
+
 }
 
