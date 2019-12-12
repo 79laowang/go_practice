@@ -50,4 +50,9 @@ func main(){
     findInSlice(45, []int{56, 45, 67, 90, 109})
     findInSlice(78, []int{38, 56, 98})
     findInSlice(85, []int{})
+
+    fmt.Println("Found with slice in variadic function :")
+    nums := []int{89, 90, 100}
+    //syntactic sugar which can be used to pass a slice to a variadic function
+    find(100, nums...)
 }
