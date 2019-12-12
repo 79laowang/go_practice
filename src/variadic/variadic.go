@@ -38,6 +38,12 @@ func findInSlice(num int, nums []int){
     fmt.Printf("\n")
 }
 
+func change(s ...string) {
+    s[0] = "Go"
+    s = append(s, "playground")
+    fmt.Println("append element to slice s", s)
+}
+
 func main(){
     fmt.Println("Found with variadic:")
     find(89, 89, 90, 95)
@@ -55,4 +61,10 @@ func main(){
     nums := []int{89, 90, 100}
     //syntactic sugar which can be used to pass a slice to a variadic function
     find(100, nums...)
+
+    fmt.Println("Change slice inside a variadic function:")
+    welcome := []string{"hello", "world"}
+    fmt.Println("Original string:", welcome)
+    change(welcome...)
+    fmt.Println("After changed in variadic function:", welcome)
 }
