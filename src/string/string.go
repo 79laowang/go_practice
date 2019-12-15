@@ -14,8 +14,10 @@ func printBytes(s string) {
 }
 
 func printChars(s string) {
-    for i := 0; i < len(s); i++ {
-        fmt.Printf("%c ", s[i])
+    // support unicode character
+    runes := []rune(s)
+    for i := 0; i < len(runes); i++ {
+        fmt.Printf("%c ", runes[i])
     }
 }
 
@@ -24,5 +26,8 @@ func main() {
     fmt.Println("Output with Unicode type:")
     printBytes(name)
     fmt.Println("Output with char type:")
+    printChars(name)
+    name = "你好"
+    fmt.Printf("\n")
     printChars(name)
 }
