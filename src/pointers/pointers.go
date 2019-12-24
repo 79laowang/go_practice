@@ -4,6 +4,15 @@ import (
     "fmt"
 )
 
+func change(val *int) {
+    *val = 55
+}
+
+func hello() *int {
+    i := 5
+    return &i
+}
+
 func main() {
     b := 255
     var a *int = &b
@@ -33,5 +42,14 @@ func main() {
     fmt.Println("New value of b2 is", b2)
 
     fmt.Println("\nPassing pointer to a function:")
+    a3 := 58
+    fmt.Println("value of a3 before function call is:", a3)
+    b3 := &a3
+    change(b3)
+    fmt.Println("value of a3 after function call is:", a3)
+
+    fmt.Println("Returning pointer from a function:")
+    d := hello()
+    fmt.Println("Value of d", *d)
 
 }
