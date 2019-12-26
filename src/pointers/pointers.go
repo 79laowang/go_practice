@@ -13,6 +13,18 @@ func hello() *int {
     return &i
 }
 
+func modify(arr *[3]int) {
+    (*arr)[0] = 90
+}
+
+func modify1(arr *[3]int) {
+    arr[0] = 88
+}
+
+func modify2(sls []int) {
+    sls[0] = 87
+}
+
 func main() {
     b := 255
     var a *int = &b
@@ -51,5 +63,17 @@ func main() {
     fmt.Println("Returning pointer from a function:")
     d := hello()
     fmt.Println("Value of d", *d)
+
+    fmt.Println("\nPass a pointer to an array as a argument to a function:")
+    // Although this way of passing a pointer to an array as a argument to a function and making modification to it works, it is not the idiomatic way of achieving this in Go 
+    a4 := [3]int{89, 90, 91}
+    modify(&a4)
+    fmt.Println(a4)
+    modify1(&a4)
+    fmt.Println(a4)
+
+    fmt.Println("\nPass slice as a argument to a function:")
+    modify2(a4[:])
+    fmt.Println(a4)
 
 }
