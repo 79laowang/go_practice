@@ -2,7 +2,9 @@ package main
 
 import (
     "fmt"
+    "structure/computer"
 )
+
 
 type Employee struct {
     firstName, lastName string
@@ -79,4 +81,50 @@ func main() {
     p1.string = "naveen"
     p1.int = 50
     fmt.Println("Struct with anonymous fileds:", p1)
+
+    fmt.Println("\nNest struct:")
+    type Address struct {
+        city, state string
+    }
+    type Person1 struct {
+        name string
+        age int
+        address Address
+    }
+    var p2 Person1
+    p2.name = "Ke"
+    p2.age = 25 
+    p2.address = Address {
+        city: "Beijing",
+        state: "Beijing",
+    }
+    fmt.Println("Name:", p2.name)
+    fmt.Println("Age:", p2.age)
+    fmt.Println("City:", p2.address.city)
+    fmt.Println("Age:", p2.address.state)
+
+    fmt.Println("\nPromoted fields,")
+    type Person2 struct {
+        name string
+        age int
+        Address
+    }
+    var p3 Person2
+    p3.name = "Bob"
+    p3.age = 12
+    p3.Address = Address {
+        city: "Tongzhou",
+        state: "Beijing",
+    }
+    fmt.Println("Name:", p3.name)
+    fmt.Println("Age:", p3.age)
+    fmt.Println("City:", p3.city) //city is promoted field
+    fmt.Println("State:", p3.state) //state is promoted field
+
+    fmt.Println("\n- Exported Structs and Fields,")
+    var spec computer.Spec
+    spec.Maker = "apple"
+    spec.Price = 50000
+    fmt.Println("Spec:", spec)
 }
+
