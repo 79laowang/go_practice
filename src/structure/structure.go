@@ -126,5 +126,41 @@ func main() {
     spec.Maker = "apple"
     spec.Price = 50000
     fmt.Println("Spec:", spec)
+
+    type name struct {
+        firstName string
+        lastName string
+    }
+
+    fmt.Println("\n- Structs are value types and are comparable if each of their fields are comparable,")
+    name1 := name{"Steve", "Jobs"}
+    name2 := name{"Steve", "Jobs"}
+    if name1 == name2 {
+        fmt.Println("name1 and name2 are equal")
+    } else {
+        fmt.Println("name1 and name2 are not equal")
+    }
+    name3 := name{firstName:"Steve", lastName:"Jobs"}
+    name4 := name{}
+    name4.firstName = "Steve"
+    if name3 == name4 {
+        fmt.Println("name3 and name4 are equal")
+    } else {
+        fmt.Println("name3 and name4 are not equal")
+    }
+
+    fmt.Println("\n- Struct variables are not comparable if they contain fields which are not comparable,")
+    type image struct {
+        data map[int]int
+    }
+    image1 := image{data: map[int]int{
+        0: 155,
+    }}
+    image2 := image{data: map[int]int{
+        0: 155,
+    }}
+    fmt.Println("image1 and image2 cannot be compared!")
+    fmt.Println("image1",image1)
+    fmt.Println("image2",image2)
 }
 
