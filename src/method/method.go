@@ -30,6 +30,14 @@ func (r Rectangle) Area() int {
     return r.length * r.width
 }
 
+func area(r Rectangle) {
+    fmt.Printf("Area Function result: %d\n", (r.length * r.width))
+}
+
+func (r Rectangle) area() {
+    fmt.Printf("Area method result: %d\n", (r.length * r.width))
+}
+
 func (c Circle) Area() float64 {
     return math.Pi * c.radius * c.radius
 }
@@ -46,6 +54,21 @@ Method with pointer receiver
 */
 func (e *Employee) changeAge(newAge int) {
     e.salary = newAge
+}
+
+type address struct {
+    city string
+    state string
+}
+
+func (a address) fullAddress() {
+    fmt.Printf("Full address: %s, %s", a.city, a.state)
+}
+
+type person struct {
+    firstName string
+    lastName  string
+    address
 }
 
 func main() {
@@ -81,5 +104,34 @@ func main() {
     fmt.Printf("\nEmployee salary after change: %d", e.salary)
     e.changeAge(5002)
     fmt.Printf("\nEmployee salary after change: %d", e.salary)
+    
+    fmt.Println("\n\nMedhods of anonymous struct fields:")
+    p11 := person {
+        firstName: "Elon",
+        lastName:  "Musk",
+        address: address {
+            city: "Los Angeles",
+            state: "ShanDong",
+        },
+    }    
+    p11.fullAddress()  // accessing fullAddress method of address struct
+
+    // When a function has a value argument, it will accept only a value argument.
+    // When a method has a value receiver, it will accept both pointer and value receivers
+    fmt.Println("\n\nValue receivers in methods vs Value arguments in functions")
+    r1 := Rectangle {
+        length: 10,
+        width: 5,
+    }
+    area(r1)
+    r1.area()
+    p12 := &r
+     /*
+       compilation error, cannot use p (type *rectangle) as type rectangle 
+       in argument to area  
+    */
+    //area(p12)
+    p12.area() //calling value receiver with a pointer
+
 
 }
