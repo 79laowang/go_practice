@@ -71,7 +71,24 @@ type person struct {
     address
 }
 
+func perimeter(r *Rectangle) {
+    fmt.Println("perimeter function output:", 2*(r.length+r.width))
+}
+
+// method
+func (r *Rectangle) perimeter() {
+    fmt.Println("perimeter method output:", 2*(r.length+r.width))
+}
+
+type myInt int
+
+// non-struct receivers
+func (a myInt) add(b myInt) myInt {
+    return a + b
+}
+
 func main() {
+    fmt.Println(" To define a method on a type, the definition of the receiver type and the definition of the method should be present in the same package.\n")
     emp1 := Employee {
         name:    "Sam Adolf",
         salary:  5000,
@@ -125,13 +142,29 @@ func main() {
     }
     area(r1)
     r1.area()
-    p12 := &r
+    p12 := &r1
      /*
        compilation error, cannot use p (type *rectangle) as type rectangle 
        in argument to area  
     */
     //area(p12)
+    //for convenience will be interpreted by Go as (*p).area() since area has a value receiver. 
     p12.area() //calling value receiver with a pointer
 
+    fmt.Println("\n\nPointer receivers in methods vs Pointer arguments in functions,")
+    p13 := &r1 // pointer to r
+    perimeter(p13)
+    p13.perimeter()
+    /*
+        cannot use r (type rectangle) as type *rectangle in argument to perimeter
+    */
+    //perimeter(r)
+    // will be interpreted by the language as (&r).perimeter() for convenience.
+    r.perimeter()   //calling pointer receiver with a value
 
+    fmt.Println("\n\nMethods with non-struct receivers,")
+    num1 := myInt(5)
+    num2 := myInt(10)
+    sum := num1.add(num2)
+    fmt.Println("Sum is", sum)
 }
