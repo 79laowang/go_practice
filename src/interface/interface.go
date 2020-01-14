@@ -58,6 +58,24 @@ func totalExpense(s []SalaryCalculator) {
     fmt.Printf("Total Expense Per Month $%d", expense)
 }
 
+type Tester interface {
+    Test()
+}
+
+type MyFloat float64
+
+func (m MyFloat) Test() {
+    fmt.Println(m)
+}
+
+func describe (t Tester) {
+    fmt.Printf("Interface type %T value %v\n", t, t)
+}
+
+func describe1(i interface{}) {
+    fmt.Printf("Type = %T, value = %v\n", i, i)
+}
+
 func main() {
     name := MyString("Sam Anderson")
     var v VowelsFinder
@@ -72,4 +90,26 @@ func main() {
     cemp1 := Contract{3, 3000}
     employees := []SalaryCalculator{pemp1, pemp2, cemp1}
     totalExpense(employees)
+
+    fmt.Println("\n\n")
+    var t Tester
+    f := MyFloat(89.7)
+    t = f
+    describe(t)
+    t.Test()
+
+/*
+An interface which has zero methods is called empty interface. It is represented as interface{}. Since the empty interface has zero methods, all types implement the empty interface. 
+*/
+    fmt.Println("\n\nEmpty interface:")
+    s := "Hello World"
+    describe1(s)
+    i := 55
+    describe1(i)
+    strt := struct {
+        name string
+    }{
+        name: "Naveen R",
+    }
+    describe1(strt)
 }
