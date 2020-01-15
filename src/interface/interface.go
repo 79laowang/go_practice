@@ -73,7 +73,12 @@ func describe (t Tester) {
 }
 
 func describe1(i interface{}) {
-    fmt.Printf("Type = %T, value = %v\n", i, i)
+    fmt.Printf("interface Type = %T, value = %v\n", i, i)
+}
+
+func assert(i interface{}) {
+    v, ok := i.(int)  //get the underlying int value from i 
+    fmt.Println(v, ok)
 }
 
 func main() {
@@ -112,4 +117,12 @@ An interface which has zero methods is called empty interface. It is represented
         name: "Naveen R",
     }
     describe1(strt)
+
+    /* i.(T) is the syntax which is used to get the underlying value of interface i whose concrete type is T.
+    */
+    fmt.Println("\n\nAssertion usage of interface:")
+    var s1 interface{} = 56
+    assert(s1)
+    var i1 interface{} = "Steven Paul"
+    assert(i1)
 }
