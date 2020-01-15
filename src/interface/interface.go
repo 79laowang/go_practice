@@ -81,6 +81,17 @@ func assert(i interface{}) {
     fmt.Println(v, ok)
 }
 
+func findType(i interface{}) {
+    switch i.(type) {
+    case string:
+        fmt.Printf("a string and value is %s\n", i.(string))
+    case int:
+        fmt.Printf("an int and value is %d\n", i.(int))
+    default:
+        fmt.Printf("Unknown type\n")
+    }
+}
+
 func main() {
     name := MyString("Sam Anderson")
     var v VowelsFinder
@@ -125,4 +136,10 @@ An interface which has zero methods is called empty interface. It is represented
     assert(s1)
     var i1 interface{} = "Steven Paul"
     assert(i1)
+
+    fmt.Println("\n\ni.(T) usage for switch:")
+        findType("Bob")
+    findType("77")
+    findType("89.88")
+
 }
