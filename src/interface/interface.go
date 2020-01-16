@@ -92,6 +92,28 @@ func findType(i interface{}) {
     }
 }
 
+type Describer interface {
+    Describe()
+}
+
+type Person struct {
+    name string
+    age int
+}
+
+func (p Person) Describe() {
+    fmt.Printf("%s is %d years old", p.name, p.age)
+}
+
+func findType1(i interface{}) {
+    switch v := i.(type) {
+    case Describer:
+        v.Describe()
+    default:
+        fmt.Printf("Unknown type\n")
+    }
+}
+
 func main() {
     name := MyString("Sam Anderson")
     var v VowelsFinder
@@ -138,8 +160,15 @@ An interface which has zero methods is called empty interface. It is represented
     assert(i1)
 
     fmt.Println("\n\ni.(T) usage for switch:")
-        findType("Bob")
+    findType("Bob")
     findType("77")
     findType("89.88")
 
+    findType1("Naveen")
+    p1 := Person{
+        name: "Naveen R",
+        age:  25,
+
+    }
+    findType1(p1)
 }
