@@ -101,8 +101,8 @@ type Person struct {
     age int
 }
 
-func (p Person) Describe() {
-    fmt.Printf("%s is %d years old", p.name, p.age)
+func (p Person) Describe() { //implemented using value receiver
+    fmt.Printf("%s is %d years old\n", p.name, p.age)
 }
 
 func findType1(i interface{}) {
@@ -112,6 +112,15 @@ func findType1(i interface{}) {
     default:
         fmt.Printf("Unknown type\n")
     }
+}
+
+type Address struct {
+    state    string
+    country  string
+}
+
+func (a *Address) Describe() { // implemeted using pointer receiver
+    fmt.Printf("State %s Country %s\n", a.state, a.country)
 }
 
 func main() {
@@ -168,7 +177,21 @@ An interface which has zero methods is called empty interface. It is represented
     p1 := Person{
         name: "Naveen R",
         age:  25,
-
     }
     findType1(p1)
+
+    fmt.Println("\n\nInterface using pointer receiver: ")
+    var d1 Describer
+    pp1 := Person{"Sam", 25}
+    d1 = pp1
+    d1.Describe()
+    p2 := Person{"James", 32}
+    d1 = &p2
+    d1.Describe()
+    var d2 Describer
+    a1 := Address{"Washington", "USA"}
+    d2 = &a1
+    d2.Describe()
+
+
 }
