@@ -123,6 +123,31 @@ func (a *Address) Describe() { // implemeted using pointer receiver
     fmt.Printf("State %s Country %s\n", a.state, a.country)
 }
 
+type SalaryCalculator1 interface {
+    DisplaySalary()
+}
+
+type LeaveCalculator interface {
+    CalculateSalaryLeft() int
+}
+
+type Employee struct {
+    firstName string
+    lastName  string
+    basicPay  int
+    pf        int
+    totalLeaves  int
+    leavesTaken  int
+}
+
+func (e Employee) DisplaySalary() {
+    fmt.Printf("%s %s has salary $%d", e.firstName , e.lastName, (e.basicPay + e.pf))
+}
+
+func (e Employee) CalculateSalaryLeft() int {
+    return e.totalLeaves - e.leavesTaken
+}
+
 func main() {
     name := MyString("Sam Anderson")
     var v VowelsFinder
@@ -193,5 +218,18 @@ An interface which has zero methods is called empty interface. It is represented
     d2 = &a1
     d2.Describe()
 
+    fmt.Println("\n\nMultiple interfaces:")
+    e := Employee {
+        firstName: "Naveen",
+        lastName: "Ramanathan",
+        basicPay: 5000,
+        pf: 200,
+        totalLeaves: 30,
+        leavesTaken: 5,
+    }
+    var s11 SalaryCalculator1 = e
+    s11.DisplaySalary()
+    var l LeaveCalculator = e
+    fmt.Println("\nLeaves left =", l.CalculateSalaryLeft())
 
 }
