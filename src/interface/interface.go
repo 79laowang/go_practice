@@ -131,6 +131,11 @@ type LeaveCalculator interface {
     CalculateSalaryLeft() int
 }
 
+type EmployeeOperations interface {
+    SalaryCalculator1
+    LeaveCalculator
+}
+
 type Employee struct {
     firstName string
     lastName  string
@@ -232,4 +237,17 @@ An interface which has zero methods is called empty interface. It is represented
     var l LeaveCalculator = e
     fmt.Println("\nLeaves left =", l.CalculateSalaryLeft())
 
+    fmt.Println("\n\nEmbedding interfaces:")
+    /*
+    The Employee struct implements EmployeeOperations interface since it provides definition for both DisplaySalary and CalculateLeavesLeft methods
+    */
+    var empOp EmployeeOperations = e
+    empOp.DisplaySalary()
+    fmt.Println("\nLeaves left =", empOp.CalculateSalaryLeft())
+
+    fmt.Println("\nZero value of interface:")
+    var d3 Describer
+    if d3 == nil {
+        fmt.Printf("d3 is nil and has type %T value %v\n", d3, d3)
+    }
 }
