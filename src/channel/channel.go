@@ -29,6 +29,11 @@ func calcCubes(number int, cubeop chan int) {
 	cubeop <- sum
 }
 
+// Only send channel
+func sendData(sendch chan<- int) {
+	sendch <- 10
+}
+
 func main() {
 	var a chan int
 	if a == nil {
@@ -49,4 +54,9 @@ func main() {
 	go calcCubes(number, cubech)
 	squares, cubes := <-sqrch, <-cubech
 	fmt.Println("Final output", squares+cubes)
+
+	fmt.Println("\nOnly send channel and Unidirectional channels:")
+	chn1 := make(chan int)
+	go sendData(chn1)
+	fmt.Println("read from channel:", <-chn1)
 }
