@@ -32,9 +32,18 @@ func main() {
 	ch2 := make(chan string, 2)
 	ch2 <- "naveen"
 	ch2 <- "paul"
-	ch2 <- "bob"
+	// ch2 <- "bob" // dead lock
 	// write 3 strings to a buffered channel of capacity 2, the third write is blocked since the channel has exceeded its capacity
 	// no concurrent routine reading from this channel. Hence there will be a deadlock and the program will panic at run time
-	fmt.Println(<-ch)
-	fmt.Println(<-ch)
+	fmt.Println(<-ch2)
+	fmt.Println(<-ch2)
+
+	fmt.Println("Length vs Capacity:")
+	ch3 := make(chan string, 3)
+	ch3 <- "naveen"
+	ch3 <- "bob"
+	fmt.Println("capacity is", cap(ch3))
+	fmt.Println("length is", len(ch3))
+	fmt.Println("read value", <-ch3)
+	fmt.Println("new length is", len(ch3))
 }
