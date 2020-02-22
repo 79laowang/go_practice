@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
+	"sync"
 )
 
 func write(ch chan int) {
@@ -11,6 +12,14 @@ func write(ch chan int) {
 		fmt.Println("successfully wrote", i, "to ch")
 	}
 	close(ch)
+}
+
+//For Waitgroup
+func process(i int, wg *sync.WaitGroup) {
+	fmt.Println("started Gorouting", i)
+	time.Sleep(2 * time.Second)
+	fmt.Printf("Goroutine %d ended\n", i)
+	wg.Done()
 }
 
 func main() {
@@ -46,4 +55,15 @@ func main() {
 	fmt.Println("length is", len(ch3))
 	fmt.Println("read value", <-ch3)
 	fmt.Println("new length is", len(ch3))
+	
+	fmt.Println("WaitGourp:")
+	no := 3
+	var wg sync.WaitGroup
+	for i := 0; i < no; i++ {
+		wg.Add(1)
+		go process(i, &wg)
+	}
+	wg.Wait()
+	fmt.Println("All go routines finished execting!")
+
 }
