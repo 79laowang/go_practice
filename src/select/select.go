@@ -20,11 +20,12 @@ func main() {
 	output1 := make(chan string)
 	output2 := make(chan string)
 	go server1(output1)
-	go server1(output2)
+	go server2(output2)
+	// The select statement blocks until one of its cases is ready, and then will terminate.
 	select {
 	case s1 := <-output1:
 		fmt.Println(s1)
 	case s2 := <-output2:
-	    fmt.Println(s2)
+        fmt.Println(s2)
 	}
 }
