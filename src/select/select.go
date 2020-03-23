@@ -15,6 +15,11 @@ func server2(ch chan string) {
 	ch <- "from server2"
 }
 
+func process(ch chan string) {
+	time.Sleep(10500 * time.Millisecond)
+	ch <- "process succesful"
+}
+
 func main() {
 	fmt.Println("select usage:")
 	output1 := make(chan string)
@@ -27,5 +32,19 @@ func main() {
 		fmt.Println(s1)
 	case s2 := <-output2:
         fmt.Println(s2)
+	}
+
+	fmt.Println("\n----------------\n")
+	ch1 := make(chan string)
+	go process(ch1)
+	for {
+		time.Sleep(1000 * time.Millisecond)
+		select {
+		case v := <-ch1:
+			fmt.Println("received value: ",v)
+			return
+		default:
+			fmt.Println("no value received")
+		}
 	}
 }
