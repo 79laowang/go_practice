@@ -15,6 +15,14 @@ func server2(ch chan string) {
 	ch <- "from server2"
 }
 
+func server3(ch chan string) {
+	ch <- "from server3"
+}
+
+func server4(ch chan string) {
+	ch <- "from server4"
+}
+
 func process(ch chan string) {
 	time.Sleep(10500 * time.Millisecond)
 	ch <- "process succesful"
@@ -34,7 +42,20 @@ func main() {
         fmt.Println(s2)
 	}
 
-	fmt.Println("\n----------------\n")
+    fmt.Println("\n--------Random select ---------\n")
+	output3 := make(chan string)
+	output4 := make(chan string)
+	go server3(output3)
+	go server4(output4)
+	time.Sleep(1 * time.Second)
+	select {
+	case s3 := <-output3:
+		fmt.Println(s3)
+	case s4 := <-output4:
+		fmt.Println(s4)
+	}
+	
+	fmt.Println("\n---- default case in a select statement ----\n")
 	ch1 := make(chan string)
 	go process(ch1)
 	for {
@@ -47,4 +68,6 @@ func main() {
 			fmt.Println("no value received")
 		}
 	}
+
+
 }
