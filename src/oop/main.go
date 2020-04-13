@@ -7,11 +7,6 @@ import (
 
 func main() {
 	fmt.Println("Go oop!")
-	e := employee.Employee {
-		FirstName:"Sam",
-		LastName:  "Tangna",
-		TotalLeaves:  30,
-		LeavesTaken:  20,
-	}
-	e.LeavesRemaining()
+	e1 := employee.New("Bob", "Wang", 25, 15)
+	e1.LeavesRemaining()
 }
